@@ -1,5 +1,5 @@
 const solanaWeb3 = require("@solana/web3.js");
-//const fs = require("fs");
+const fs = require("fs");
 
 const searchAddress = "ADDR"; // wallet address to search
 const txnCount = 1; // number of txns
@@ -38,14 +38,30 @@ const getTransactions = async (address, numTx) => {
     });
     console.log("-".repeat(20));
   });
+};
 
-  //fs.writeFile("log.txt", transactionInstructions, (err) => {
-  //if (err) {
-  //console.error(err);
-  //return;
-  //}
-  //file written successfully
-  //});
+const printTransactions = async (address, numTx) => {
+  const pubKey = new solanaWeb3.PublicKey(address);
+  let transactionList = await solanaConnection.getSignaturesForAddress(pubKey, {
+    limit: numTx,
+  });
+
+  let signatureList = transactionList.map(
+    (transaction) => transaction.signature
+  );
+  let transactionDetails = await solanaConnection.getParsedTransactions(
+    signatureList
+  );
+
+  fs.writeFile("log.txt", transactionList, (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    //file written successfully
+  });
 };
 
 getTransactions(searchAddress, txnCount);
+
+// printTransactions(searchAddress, txnCount);
