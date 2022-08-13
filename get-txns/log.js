@@ -40,28 +40,4 @@ const getTransactions = async (address, numTx) => {
   });
 };
 
-const printTransactions = async (address, numTx) => {
-  const pubKey = new solanaWeb3.PublicKey(address);
-  let transactionList = await solanaConnection.getSignaturesForAddress(pubKey, {
-    limit: numTx,
-  });
-
-  let signatureList = transactionList.map(
-    (transaction) => transaction.signature
-  );
-  let transactionDetails = await solanaConnection.getParsedTransactions(
-    signatureList
-  );
-
-  fs.writeFile("log.txt", transactionList, (err) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    //file written successfully
-  });
-};
-
 getTransactions(searchAddress, txnCount);
-
-// printTransactions(searchAddress, txnCount);
