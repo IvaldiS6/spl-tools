@@ -1,5 +1,5 @@
 const solanaWeb3 = require("@solana/web3.js");
-const fs = require("fs");
+//const fs = require("fs");
 
 const searchAddress = "ADDR"; // wallet address to search
 const txnCount = 1; // number of txns
@@ -39,13 +39,13 @@ const getTransactions = async (address, numTx) => {
     console.log("-".repeat(20));
   });
 
-  fs.writeFile("log.txt", transactionList, (err) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    //file written successfully
-  });
+  //fs.writeFile("log.txt", transactionInstructions, (err) => {
+  //if (err) {
+  //console.error(err);
+  //return;
+  //}
+  //file written successfully
+  //});
 };
 
 getTransactions(searchAddress, txnCount);
