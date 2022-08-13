@@ -1,7 +1,7 @@
 const solanaWeb3 = require("@solana/web3.js");
 const fs = require("fs");
 
-const searchAddress = "FAK8PvzpW4vwkYq4m75GJwFPPa2RGsiq2btyd3yWdAaB"; // wallet address to search
+const searchAddress = "ADDR"; // wallet address to search
 const txnCount = 1; // number of txns
 
 const endpoint = "https://ssc-dao.genesysgo.net"; // rpc endpoint to use
@@ -37,6 +37,14 @@ const getTransactions = async (address, numTx) => {
       );
     });
     console.log("-".repeat(20));
+  });
+
+  fs.writeFile("log.txt", transactionList, (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    //file written successfully
   });
 };
 
